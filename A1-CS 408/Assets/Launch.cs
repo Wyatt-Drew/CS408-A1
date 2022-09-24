@@ -42,6 +42,9 @@ void Update()
         mesh.vertices = newVertices;
         mesh.triangles = newTriangles;
         mesh.RecalculateNormals();
+        Renderer renderer = launched.GetComponent<Renderer>();
+        Color color = new Color(red, green, blue, transparency);
+        renderer.material.color = color;
 
     }
 
@@ -71,73 +74,85 @@ void Update()
                 case 'R'://red color
                     {
                         red += 0.1f;
-                        Debug.Log(red);
+                        if (red > 1f)
+                            red = 1f;
                         break;
                     }
                 case 'r':
                     {
                         red -= 0.1f;
-                        Debug.Log("r");
+                        if (red < 0f)
+                            red = 0f;
                         break;
                     }
                 case 'G'://green
                     {
                         green += 0.1f;
-                        Debug.Log("r");
+                        if (green > 1f)
+                            green = 1f;
                         break;
                     }
                 case 'g':
                     {
                         green -= 0.1f;
-                        Debug.Log("r");
+                        if (green < 0f)
+                            green = 0f;
                         break;
                     }
                 case 'B'://blue
                     {
                         blue += 0.1f;
-                        Debug.Log("r");
+                        if (blue > 1f)
+                            blue = 1f;
                         break;
                     }
                 case 'b':
                     {
                         blue -= 0.1f;
-                        Debug.Log("r");
+                        if (blue < 0f)
+                            blue = 0f;
                         break;
                     }
                 case 'T'://Transparency
                     {
                         transparency += 0.1f;
-                        Debug.Log("r");
+                        if (transparency > 1f)
+                            transparency = 1f;
                         break;
                     }
                 case 't':
                     {
                         transparency -= 0.1f;
-                        Debug.Log("r");
+                        if (transparency < 0f)
+                            transparency = 0f;
                         break;
                     }
                 case '+'://size
                     {
                         size += 0.1f;
-                        Debug.Log("r");
+                        if (size > 200f)
+                            size = 200f;
                         break;
                     }
                 case '-':
                     {
                         size -= 0.1f;
-                        Debug.Log("r");
+                        if (size < 1f)
+                            size = 1f;
                         break;
                     }
                 case 'H'://shape
                     {
                         shape += 0.1f;
-                        Debug.Log("r");
+                        if (shape > 3.0)
+                            shape = 3.0f;
                         break;
                     }
                 case 'h':
                     {
                         shape -= 0.1f;
-                        Debug.Log("r");
+                        if (shape < 0.5f)
+                            shape = 0.5f;
                         break;
                     }
             }
@@ -145,13 +160,15 @@ void Update()
         if (Input.GetKey("up"))
         {
             speed += 0.1f;
-            print("up arrow key is held down");
+            if (speed > 10f)
+                speed = 10f;
         }
 
         if (Input.GetKey("down"))
         {
             speed -= 0.1f;
-            print("down arrow key is held down");
+            if (speed < 0f)
+                speed = 0f;
         }
 
     }
