@@ -10,9 +10,18 @@ public class Launch : MonoBehaviour
 
     public GameObject projectile;
     public float launchVelocity = 700f;
+    public static float red = 0.25f;
+    public static float green = 0.25f;
+    public static float blue = 0.25f;
+    public static float transparency = 1f;
+    public static float size = 1f;
+    public static float speed = 5f;
+    public static float shape = 1f;
 
-    // Update is called once per frame
-    void Update()
+
+
+// Update is called once per frame
+void Update()
     {
         //Updates properties before any are used
         projectileProperties();
@@ -61,61 +70,73 @@ public class Launch : MonoBehaviour
             {
                 case 'R'://red color
                     {
-                        Debug.Log("R");
+                        red += 0.1f;
+                        Debug.Log(red);
                         break;
                     }
                 case 'r':
                     {
+                        red -= 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'G'://green
                     {
+                        green += 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'g':
                     {
+                        green -= 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'B'://blue
                     {
+                        blue += 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'b':
                     {
+                        blue -= 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'T'://Transparency
                     {
+                        transparency += 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 't':
                     {
+                        transparency -= 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case '+'://size
                     {
+                        size += 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case '-':
                     {
+                        size -= 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'H'://shape
                     {
+                        shape += 0.1f;
                         Debug.Log("r");
                         break;
                     }
                 case 'h':
                     {
+                        shape -= 0.1f;
                         Debug.Log("r");
                         break;
                     }
@@ -123,22 +144,16 @@ public class Launch : MonoBehaviour
         }
         if (Input.GetKey("up"))
         {
+            speed += 0.1f;
             print("up arrow key is held down");
         }
 
         if (Input.GetKey("down"))
         {
+            speed -= 0.1f;
             print("down arrow key is held down");
-        }
-        if (Input.GetKey("left"))
-        {
-            print("up arrow key is held down");
         }
 
-        if (Input.GetKey("right"))
-        {
-            print("down arrow key is held down");
-        }
     }
 }
 

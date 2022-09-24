@@ -23,5 +23,15 @@ public class MoveLauncher : MonoBehaviour
         {
             this.transform.Translate(0.0f, -0.1f, 0f);
         }
+        if (Input.GetKey("left"))
+        {
+            this.transform.Rotate(0, 0, 1);
+            print("up arrow key is held down");
+}
+
+if (Input.GetKey("right"))
+{
+    print("down arrow key is held down");
+}
     }
 }
