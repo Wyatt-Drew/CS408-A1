@@ -12,11 +12,6 @@ public class MoveLauncher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-//        this.transform.position = new Vector3(
-//Mathf.Clamp(this.transform.position.x, cameraRect.xMin, cameraRect.xMax),
-//Mathf.Clamp(this.transform.position.y, cameraRect.yMin, cameraRect.yMax),
-//this.transform.position.z);
-
         if (Input.GetKey(KeyCode.A))
         {
             if (x > -xboarder)

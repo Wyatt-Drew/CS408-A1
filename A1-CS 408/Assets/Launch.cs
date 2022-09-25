@@ -21,9 +21,10 @@ public class Launch : MonoBehaviour
     //creative feature
     public static float spawnRate = 1;
     public static float spawnCycle = 0;
+    public static float rotationSpeed = 0f;
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    void Update()
     {
         //Updates properties before any are used
         projectileProperties();
@@ -51,10 +52,15 @@ void Update()
             Renderer renderer = launched.GetComponent<Renderer>();
             Color color = new Color(red, green, blue, transparency);
             renderer.material.color = color;
+            //destory particle
             Destroy(launched, 1);
         }
-    }
 
+    }
+    public float getRotationSpeed()
+    {
+        return rotationSpeed;
+    }
     void generateMesh()
     {
         float m = 0.5f * size;
@@ -240,6 +246,21 @@ void Update()
                             spawnRate = 1f;
                         break;
                     }
+                case 'E':
+                    {
+                        rotationSpeed += 5f;
+                        if (rotationSpeed > 100f)
+                            rotationSpeed = 100f;
+                        break;
+                    }
+                case 'e':
+                    {
+                        rotationSpeed -= 5f;
+                        if (rotationSpeed < 0f)
+                            rotationSpeed = 0f;
+                        break;
+                    }
+
             }
         }
         if (Input.GetKey("up"))
