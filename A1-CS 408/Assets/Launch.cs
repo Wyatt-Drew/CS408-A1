@@ -16,7 +16,7 @@ public class Launch : MonoBehaviour
     public static float transparency = 1f;
     public static float size = 1f;
     public static float speed = 5f;
-    public static float shape = 1f;
+    public static float shape = 0f;//range accounted for
 
 
 
@@ -50,21 +50,83 @@ void Update()
 
     void generateMesh()
     {
-        newVertices = new Vector3[]
-    {
-                new Vector3(0,0,0),
-                new Vector3(1,0,0),
-                new Vector3(2,0,0),
+        float m = 0.5f;
+        float r = 1f;
+        float offset = -0.5f;
+        if (shape <= 0f)
+        {
+            newVertices = new Vector3[]
+            {
+                new Vector3(offset, offset, 0),
 
-                new Vector3(0,1,0),
-                new Vector3(2,1,0),
+                new Vector3(offset+m, offset-shape, 0),
+                new Vector3(offset+m, offset-shape, 0),
+                new Vector3(offset+m, offset-shape, 0),
 
-                new Vector3(0,2,0),
-                new Vector3(1,2,0),
-                new Vector3(2,2,0)
-    };
-        newTriangles = new int[] { 0, 3, 1, 1, 3, 4, 1, 4, 2, 3, 5, 6, 3, 6, 4, 4, 6, 7 };
-    }
+                new Vector3(offset+r, offset, 0),
+
+                new Vector3(offset-shape, offset+m, 0),
+                new Vector3(offset-shape, offset+m, 0),
+                new Vector3(offset-shape, offset+m, 0),
+                new Vector3(offset-shape, offset+m, 0),
+
+                new Vector3(offset+shape+r, offset+m, 0),
+                new Vector3(offset+shape+r, offset+m, 0),
+                new Vector3(offset+shape+r, offset+m, 0),
+                new Vector3(offset+shape+r, offset+m, 0),
+
+                new Vector3(offset, offset+r, 0),
+
+                new Vector3(offset+m, offset+r+shape, 0),
+                new Vector3(offset+m, offset+r+shape, 0),
+                new Vector3(offset+m, offset+r+shape, 0),
+
+                new Vector3(offset+r, offset+r, 0)
+
+            };
+        //virticies numbered from left to right then bottom to top
+        
+         newTriangles = new int[] { 5, 1, 0,  10, 4, 3, 13, 14, 7,  16, 17, 12, 2, 6, 9, 8, 15, 11};
+         }
+
+        if (shape > 0f)
+        {
+            newVertices = new Vector3[]
+            {
+                //centers
+                new Vector3(offset, offset, 0),
+                new Vector3(offset, offset + r, 0),
+                new Vector3(offset + r, offset, 0),
+                
+
+                new Vector3(offset + r, offset, 0),
+                new Vector3(offset, offset + r, 0),
+                new Vector3(offset + r, offset + r, 0),
+
+                //corners
+                new Vector3(offset, offset + r, 0),
+                new Vector3(offset, offset, 0),
+                new Vector3(offset-shape, offset + m, 0),
+
+                new Vector3(offset, offset, 0),
+                new Vector3(offset + r, offset, 0),
+                new Vector3(offset + m, offset-shape, 0),
+
+                new Vector3(offset + r, offset, 0),
+                new Vector3(offset + r, offset + r, 0),
+                new Vector3(offset+shape+1f, offset+m, 0),
+
+                new Vector3(offset + r, offset + r, 0),
+                new Vector3(offset, offset + r, 0),
+                new Vector3(offset+m, offset+shape+1f, 0)
+
+            };
+            newTriangles = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 };
+        }
+    //    newTriangles = new int[] { 0, 1, 5, 3, 4, 10, 7, 14, 13, 12, 17, 16, 2, 6, 9, 8, 15, 11 };
+    //newTriangles = new int[] { 0, 5, 1, 2, 6, 9, 3, 10, 4, 7, 13, 14, 8, 15, 11, 12, 16, 17 };
+    //newTriangles = new int[] { 2, 6, 9, 8, 15, 11, 1, 5, 0 };
+}
     void projectileProperties()
     {
         foreach (char c in Input.inputString)
@@ -144,15 +206,15 @@ void Update()
                 case 'H'://shape
                     {
                         shape += 0.1f;
-                        if (shape > 3.0)
-                            shape = 3.0f;
+                        if (shape > 1.0)
+                            shape = 1.0f;
                         break;
                     }
                 case 'h':
                     {
                         shape -= 0.1f;
-                        if (shape < 0.5f)
-                            shape = 0.5f;
+                        if (shape < -0.25f)
+                            shape = -0.25f;
                         break;
                     }
             }
