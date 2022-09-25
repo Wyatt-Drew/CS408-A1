@@ -9,14 +9,14 @@ public class Launch : MonoBehaviour
     int[] newTriangles;
 
     public GameObject projectile;
-    public float launchVelocity = 700f;
+    //public float speed = 5f;
     public static float red = 0.25f;
     public static float green = 0.25f;
     public static float blue = 0.25f;
     public static float transparency = 1f;
-    public static float size = 1f;
-    public static float speed = 5f;
-    public static float shape = 0f;//range accounted for
+    public static float size = 100f;
+    public static float speed = 700f;
+    public static float shape = 0f;//measures difference from default.  Default = 1.
 
 
 
@@ -27,8 +27,8 @@ void Update()
         projectileProperties();
         //Generate random angle, calculate x, y velocity so overall V is 5
         float angle = Random.Range(-30, 30);
-        float yVelocity = launchVelocity * (Mathf.Sin(angle * Mathf.PI / 180));
-        float xVelocity = launchVelocity * (Mathf.Cos(angle * Mathf.PI / 180));
+        float yVelocity = speed * (Mathf.Sin(angle * Mathf.PI / 180));
+        float xVelocity = speed * (Mathf.Cos(angle * Mathf.PI / 180));
 
         //
         GameObject launched = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
@@ -50,36 +50,37 @@ void Update()
 
     void generateMesh()
     {
-        float m = 0.5f;
-        float r = 1f;
-        float offset = -0.5f;
+        float m = 0.5f * size;
+        float r = 1f * size;
+        float offset = -0.5f * size;
+        float tempShape = shape * size;
         if (shape <= 0f)
         {
             newVertices = new Vector3[]
             {
                 new Vector3(offset, offset, 0),
 
-                new Vector3(offset+m, offset-shape, 0),
-                new Vector3(offset+m, offset-shape, 0),
-                new Vector3(offset+m, offset-shape, 0),
+                new Vector3(offset+m, offset-tempShape, 0),
+                new Vector3(offset+m, offset-tempShape, 0),
+                new Vector3(offset+m, offset-tempShape, 0),
 
                 new Vector3(offset+r, offset, 0),
 
-                new Vector3(offset-shape, offset+m, 0),
-                new Vector3(offset-shape, offset+m, 0),
-                new Vector3(offset-shape, offset+m, 0),
-                new Vector3(offset-shape, offset+m, 0),
+                new Vector3(offset-tempShape, offset+m, 0),
+                new Vector3(offset-tempShape, offset+m, 0),
+                new Vector3(offset-tempShape, offset+m, 0),
+                new Vector3(offset-tempShape, offset+m, 0),
 
-                new Vector3(offset+shape+r, offset+m, 0),
-                new Vector3(offset+shape+r, offset+m, 0),
-                new Vector3(offset+shape+r, offset+m, 0),
-                new Vector3(offset+shape+r, offset+m, 0),
+                new Vector3(offset+tempShape+r, offset+m, 0),
+                new Vector3(offset+tempShape+r, offset+m, 0),
+                new Vector3(offset+tempShape+r, offset+m, 0),
+                new Vector3(offset+tempShape+r, offset+m, 0),
 
                 new Vector3(offset, offset+r, 0),
 
-                new Vector3(offset+m, offset+r+shape, 0),
-                new Vector3(offset+m, offset+r+shape, 0),
-                new Vector3(offset+m, offset+r+shape, 0),
+                new Vector3(offset+m, offset+r+tempShape, 0),
+                new Vector3(offset+m, offset+r+tempShape, 0),
+                new Vector3(offset+m, offset+r+tempShape, 0),
 
                 new Vector3(offset+r, offset+r, 0)
 
@@ -106,26 +107,23 @@ void Update()
                 //corners
                 new Vector3(offset, offset + r, 0),
                 new Vector3(offset, offset, 0),
-                new Vector3(offset-shape, offset + m, 0),
+                new Vector3(offset-tempShape, offset + m, 0),
 
                 new Vector3(offset, offset, 0),
                 new Vector3(offset + r, offset, 0),
-                new Vector3(offset + m, offset-shape, 0),
+                new Vector3(offset + m, offset-tempShape, 0),
 
                 new Vector3(offset + r, offset, 0),
                 new Vector3(offset + r, offset + r, 0),
-                new Vector3(offset+shape+1f, offset+m, 0),
+                new Vector3(offset+tempShape+1f, offset+m, 0),
 
                 new Vector3(offset + r, offset + r, 0),
                 new Vector3(offset, offset + r, 0),
-                new Vector3(offset+m, offset+shape+1f, 0)
+                new Vector3(offset+m, offset+tempShape+1f, 0)
 
             };
             newTriangles = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 };
         }
-    //    newTriangles = new int[] { 0, 1, 5, 3, 4, 10, 7, 14, 13, 12, 17, 16, 2, 6, 9, 8, 15, 11 };
-    //newTriangles = new int[] { 0, 5, 1, 2, 6, 9, 3, 10, 4, 7, 13, 14, 8, 15, 11, 12, 16, 17 };
-    //newTriangles = new int[] { 2, 6, 9, 8, 15, 11, 1, 5, 0 };
 }
     void projectileProperties()
     {
@@ -205,6 +203,8 @@ void Update()
                     }
                 case 'H'://shape
                     {
+                        //The upper end is 3.  Default size is 1.
+                        //From the limit of 1 we get 1 + 1 + 1 = 3.
                         shape += 0.1f;
                         if (shape > 1.0)
                             shape = 1.0f;
@@ -212,6 +212,8 @@ void Update()
                     }
                 case 'h':
                     {
+                        //lower end is 0.5.  Default size of square is 1.  
+                        //From the limit of -0.25 we get 1 - 0.25 - 0.25 = 0.5
                         shape -= 0.1f;
                         if (shape < -0.25f)
                             shape = -0.25f;
