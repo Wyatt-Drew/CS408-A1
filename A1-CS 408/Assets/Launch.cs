@@ -18,34 +18,41 @@ public class Launch : MonoBehaviour
     public static float speed = 700f;
     public static float shape = 0f;//measures difference from default.  Default = 1.
 
-
+    //creative feature
+    public static float spawnRate = 1;
+    public static float spawnCycle = 0;
 
 // Update is called once per frame
 void Update()
     {
         //Updates properties before any are used
         projectileProperties();
-        //Generate random angle, calculate x, y velocity so overall V is 5
-        float angle = Random.Range(-30, 30);
-        float yVelocity = speed * (Mathf.Sin(angle * Mathf.PI / 180));
-        float xVelocity = speed * (Mathf.Cos(angle * Mathf.PI / 180));
+        spawnCycle += 1;
+        if (spawnCycle >= spawnRate)
+        {
+            spawnCycle = 0;
+            //Generate random angle, calculate x, y velocity so overall V is 5
+            float angle = Random.Range(-30, 30);
+            float yVelocity = speed * (Mathf.Sin(angle * Mathf.PI / 180));
+            float xVelocity = speed * (Mathf.Cos(angle * Mathf.PI / 180));
 
-        //
-        GameObject launched = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
-        launched.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(xVelocity, yVelocity, 0));
+            //
+            GameObject launched = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
+            launched.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(xVelocity, yVelocity, 0));
 
-        //Now that we have an object we create a custom mesh for it
-        generateMesh();
-        //assign mesh
-        Mesh mesh = launched.GetComponent<MeshFilter>().mesh;
-        mesh.Clear();
-        mesh.vertices = newVertices;
-        mesh.triangles = newTriangles;
-        mesh.RecalculateNormals();
-        Renderer renderer = launched.GetComponent<Renderer>();
-        Color color = new Color(red, green, blue, transparency);
-        renderer.material.color = color;
-
+            //Now that we have an object we create a custom mesh for it
+            generateMesh();
+            //assign mesh
+            Mesh mesh = launched.GetComponent<MeshFilter>().mesh;
+            mesh.Clear();
+            mesh.vertices = newVertices;
+            mesh.triangles = newTriangles;
+            mesh.RecalculateNormals();
+            Renderer renderer = launched.GetComponent<Renderer>();
+            Color color = new Color(red, green, blue, transparency);
+            renderer.material.color = color;
+            Destroy(launched, 1);
+        }
     }
 
     void generateMesh()
@@ -115,11 +122,11 @@ void Update()
 
                 new Vector3(offset + r, offset, 0),
                 new Vector3(offset + r, offset + r, 0),
-                new Vector3(offset+tempShape+1f, offset+m, 0),
+                new Vector3(offset+tempShape+size, offset+m, 0),
 
                 new Vector3(offset + r, offset + r, 0),
                 new Vector3(offset, offset + r, 0),
-                new Vector3(offset+m, offset+tempShape+1f, 0)
+                new Vector3(offset+m, offset+tempShape+size, 0)
 
             };
             newTriangles = new int[] { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 };
@@ -189,14 +196,14 @@ void Update()
                     }
                 case '+'://size
                     {
-                        size += 0.1f;
+                        size += 2f;
                         if (size > 200f)
                             size = 200f;
                         break;
                     }
                 case '-':
                     {
-                        size -= 0.1f;
+                        size -= 2f;
                         if (size < 1f)
                             size = 1f;
                         break;
@@ -219,6 +226,20 @@ void Update()
                             shape = -0.25f;
                         break;
                     }
+                case 'q':
+                    {
+                        spawnRate += 1;
+                        if (spawnRate > 100f)
+                            spawnRate = 100f;
+                        break;
+                    }
+                case 'Q':
+                    {
+                        spawnRate -= 1;
+                        if (spawnRate < 1f)
+                            spawnRate = 1f;
+                        break;
+                    }
             }
         }
         if (Input.GetKey("up"))
@@ -226,6 +247,7 @@ void Update()
             speed += 0.1f;
             if (speed > 10f)
                 speed = 10f;
+            Debug.Log(speed);
         }
 
         if (Input.GetKey("down"))
@@ -233,6 +255,7 @@ void Update()
             speed -= 0.1f;
             if (speed < 0f)
                 speed = 0f;
+            Debug.Log(speed);
         }
 
     }
