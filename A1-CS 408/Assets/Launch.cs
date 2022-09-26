@@ -268,7 +268,6 @@ public class Launch : MonoBehaviour
             speed += 0.1f;
             if (speed > 10f)
                 speed = 10f;
-            Debug.Log(speed);
         }
 
         if (Input.GetKey("down"))
@@ -276,7 +275,6 @@ public class Launch : MonoBehaviour
             speed -= 0.1f;
             if (speed < 0f)
                 speed = 0f;
-            Debug.Log(speed);
         }
 
     }

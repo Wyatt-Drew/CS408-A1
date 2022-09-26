@@ -9,6 +9,10 @@ public class MoveLauncher : MonoBehaviour
     public static float y = 0f;
     public static float xboarder = 21.2f;//17.3
     public static float yboarder = 11.9f;//5.6
+    public GameObject projectile;
+    //creative elements
+    public static bool gameActive = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -29,7 +33,7 @@ public class MoveLauncher : MonoBehaviour
                 x = x + 0.1f;
                 this.transform.Translate(0.1f, 0f, 0f, Space.World);
             }
-                
+
         }
         if (Input.GetKey(KeyCode.W))
         {
@@ -55,7 +59,48 @@ public class MoveLauncher : MonoBehaviour
         {
             this.transform.Rotate(0, 0, -1);
         }
-    }
+        foreach (char c in Input.inputString)
+        {
+            switch (c)
+            {
+                case 'F'://astroid game
+                    {
+                        Renderer[] currentRenderers;
+                        if (gameActive != true)
+                        {
+                            gameActive = true;
+                            //currentRenderers = GetComponentsInChildren<Renderer>(true);
+                            //foreach (Renderer Component in currentRenderers)
+                            //{
+                            //    GetComponent<Renderer>.enabled = false;
+                            //}
+                            //SetRendererEnabled(true);
+                            //currentRenderers.enabled = true;
+                            //GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
 
+
+                            //GameObject.Find("spacefighter").transform.position = this.transform.position;
+                            //GameObject.Find("spacefighter").transform.rotation = Quaternion.Euler(temp);
+                            //Vector3 temp = GameObject.Find("spacefighter").transform.position;
+                        }
+                        break;
+                    }
+                case 'f'://quit astroid game
+                    {
+                        if (gameActive == true)
+                        {
+                            gameActive = false;
+                        }
+                        
+                        break;
+                    }
+            }
+        }
+
+    }
+    public bool getGameActive()
+    {
+        return gameActive;
+    }
 }
 
