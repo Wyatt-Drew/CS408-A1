@@ -70,6 +70,8 @@ public class MoveLauncher : MonoBehaviour
                         {
                             gameActive = true;
                             FindObjectOfType<Launch>().setGameActive(gameActive);
+                            GetComponent<AudioSource>().Play();
+                            FindObjectOfType<Background>().toggleStars(true);
                         }
                         break;
                     }
@@ -79,6 +81,8 @@ public class MoveLauncher : MonoBehaviour
                         {
                             gameActive = false;
                             FindObjectOfType<Launch>().setGameActive(gameActive);
+                            GetComponent<AudioSource>().Stop();
+                            FindObjectOfType<Background>().toggleStars(false);
                         }
                         
                         break;
