@@ -22,13 +22,10 @@ public class SpaceShip : MonoBehaviour
         if (gameActive == true)
         {
             GetComponent<Renderer>().enabled = true;
-            //           GetComponent<Renderer>().enabled = true;
         }
         else
         {
-
             GetComponent<Renderer>().enabled = false;
-            // GetComponent<Renderer>().enabled = false;
         }
     }
 }

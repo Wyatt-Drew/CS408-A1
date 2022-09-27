@@ -19,15 +19,24 @@ public class Launch : MonoBehaviour
     public static float shape = 0f;//measures difference from default.  Default = 1.
 
     //creative feature
-    public static float spawnRate = 1;
-    public static float spawnCycle = 0;
+    public static float spawnRate = 1f;
+    public static float spawnCycle = 0f;
     public static float rotationSpeed = 0f;
+    public bool gameActive;
 
     // Update is called once per frame
     void Update()
     {
         //Updates properties before any are used
         projectileProperties();
+        if (gameActive)
+        {
+            speed = 700f;
+            shape = -0.25f;
+            spawnRate = 1f;
+            size = 10f;
+            rotationSpeed = 10f;
+        }
         spawnCycle += 1;
         if (spawnCycle >= spawnRate)
         {
@@ -57,14 +66,15 @@ public class Launch : MonoBehaviour
         }
 
     }
+    //Creative feature
     public float getRotationSpeed()
     {
         return rotationSpeed;
     }
     void generateMesh()
-    {
-        float m = 0.5f * size;
-        float r = 1f * size;
+    {                           //shape size is 1 by default.  So left is 0, middle is 0.5 and right side is 1
+        float m = 0.5f * size;  //middle of shape
+        float r = 1f * size;    //right side of shape
         float offset = -0.5f * size;
         float tempShape = shape * size;
         if (shape <= 0f)
@@ -102,7 +112,8 @@ public class Launch : MonoBehaviour
         
          newTriangles = new int[] { 5, 1, 0,  10, 4, 3, 13, 14, 7,  16, 17, 12, 2, 6, 9, 8, 15, 11};
          }
-
+        //I use a different skin when the object is bigger than default because
+        //otherwise the triangles invert their direction
         if (shape > 0f)
         {
             newVertices = new Vector3[]
@@ -232,6 +243,7 @@ public class Launch : MonoBehaviour
                             shape = -0.25f;
                         break;
                     }
+                //Creative feature
                 case 'q':
                     {
                         spawnRate += 1;
@@ -246,6 +258,7 @@ public class Launch : MonoBehaviour
                             spawnRate = 1f;
                         break;
                     }
+                //Creative feature
                 case 'E':
                     {
                         rotationSpeed += 5f;
@@ -277,6 +290,10 @@ public class Launch : MonoBehaviour
                 speed = 0f;
         }
 
+    }
+    public void setGameActive(bool gameActive2)
+    {
+        gameActive = gameActive2;
     }
 }
 

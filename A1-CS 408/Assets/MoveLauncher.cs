@@ -69,19 +69,7 @@ public class MoveLauncher : MonoBehaviour
                         if (gameActive != true)
                         {
                             gameActive = true;
-                            //currentRenderers = GetComponentsInChildren<Renderer>(true);
-                            //foreach (Renderer Component in currentRenderers)
-                            //{
-                            //    GetComponent<Renderer>.enabled = false;
-                            //}
-                            //SetRendererEnabled(true);
-                            //currentRenderers.enabled = true;
-                            //GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
-
-
-                            //GameObject.Find("spacefighter").transform.position = this.transform.position;
-                            //GameObject.Find("spacefighter").transform.rotation = Quaternion.Euler(temp);
-                            //Vector3 temp = GameObject.Find("spacefighter").transform.position;
+                            FindObjectOfType<Launch>().setGameActive(gameActive);
                         }
                         break;
                     }
@@ -90,6 +78,7 @@ public class MoveLauncher : MonoBehaviour
                         if (gameActive == true)
                         {
                             gameActive = false;
+                            FindObjectOfType<Launch>().setGameActive(gameActive);
                         }
                         
                         break;
