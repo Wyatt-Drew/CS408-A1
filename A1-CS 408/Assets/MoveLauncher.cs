@@ -65,13 +65,14 @@ public class MoveLauncher : MonoBehaviour
             {
                 case 'F'://astroid game
                     {
-                        Renderer[] currentRenderers;
+                        //Renderer[] currentRenderers;
                         if (gameActive != true)
                         {
                             gameActive = true;
                             FindObjectOfType<Launch>().setGameActive(gameActive);
                             GetComponent<AudioSource>().Play();
                             FindObjectOfType<Background>().toggleStars(true);
+                            destoryAllProjectiles();
                         }
                         break;
                     }
@@ -79,21 +80,39 @@ public class MoveLauncher : MonoBehaviour
                     {
                         if (gameActive == true)
                         {
-                            gameActive = false;
                             FindObjectOfType<Launch>().setGameActive(gameActive);
-                            GetComponent<AudioSource>().Stop();
-                            FindObjectOfType<Background>().toggleStars(false);
+                            FindObjectOfType<Launch>().resetAll();
+                            quitGame();
                         }
-                        
                         break;
                     }
             }
         }
 
     }
+    //This quitGame function is incomplete. It excludes any Launch.cs functions.
+    //Designed to be able to be called by launch.cs
+    public void quitGame()
+    {
+        gameActive = false;
+        
+        GetComponent<AudioSource>().Stop();
+        FindObjectOfType<Background>().toggleStars(false);
+        destoryAllProjectiles();
+    }
     public bool getGameActive()
     {
         return gameActive;
+    }
+    public void destoryAllProjectiles()
+    {
+        GameObject[] projectiles;
+        projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+        if (projectiles.Length == 0){ return; }
+        foreach (GameObject EmptyProjectile in projectiles)
+        {
+            Destroy(EmptyProjectile);
+        }
     }
 }
 
