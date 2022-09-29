@@ -7,8 +7,8 @@ public class MoveLauncher : MonoBehaviour
 {
     public static float x = 0f;
     public static float y = 0f;
-    public static float xboarder = 21.2f;//17.3
-    public static float yboarder = 11.9f;//5.6
+    public static float xboarder = 21.2f;//half screen width
+    public static float yboarder = 11.9f;//half screen height
     public GameObject projectile;
     //creative elements
     public static bool gameActive = false;
@@ -20,9 +20,7 @@ public class MoveLauncher : MonoBehaviour
         {
             if (x > -xboarder)
             {
-                //this.transform.position.x;
                 x = x - 0.1f;
-                //this.transform.Translate(0, 0, Time.deltaTime);
                 this.transform.Translate(-0.1f, 0f, 0f, Space.World);
             }
         }
@@ -65,13 +63,13 @@ public class MoveLauncher : MonoBehaviour
             {
                 case 'F'://astroid game
                     {
-                        //Renderer[] currentRenderers;
                         if (gameActive != true)
                         {
                             gameActive = true;
                             FindObjectOfType<Launch>().setGameActive(gameActive);
                             GetComponent<AudioSource>().Play();
                             FindObjectOfType<Background>().toggleStars(true);
+                            FindObjectOfType<SpaceShip>().toggleGameActive(true);
                             destoryAllProjectiles();
                         }
                         break;
@@ -98,6 +96,7 @@ public class MoveLauncher : MonoBehaviour
         
         GetComponent<AudioSource>().Stop();
         FindObjectOfType<Background>().toggleStars(false);
+        FindObjectOfType<SpaceShip>().toggleGameActive(false);
         destoryAllProjectiles();
     }
     public bool getGameActive()

@@ -5,8 +5,11 @@ using UnityEngine;
 //Creative feature (everything)
 public class ActiveParticle : MonoBehaviour
 {
+    //These two are assigned at time of creation by the launcher
     float rotationSpeed;
     bool gameActive;
+    //These are only used in the event the game is active.  They force the
+    //emission stream to have these properties
      byte red = 255;
      byte blue = 0;
      float green = 255f;
@@ -35,9 +38,10 @@ public class ActiveParticle : MonoBehaviour
     }
     void assignColor()
     {
+        //fades from yellow to red
         if (green != 0)
             green -= 0.5f;
-        Color32 color = new Color32(red, (byte)green, blue, (byte)alpha);
+        Color32 color = new Color32(red, (byte)green, blue, (byte)alpha);//for easy math using Color32
         GetComponent<Renderer>().material.color = color;
     }
 }

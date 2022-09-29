@@ -5,20 +5,15 @@ using UnityEngine;
 public class SpaceShip : MonoBehaviour
 {
     static public bool gameActive;
-    void assignGameActive()
+    //Purpose: to allow other functions to change the gameActive status for this spaceship
+    public void toggleGameActive(bool status)
     {
-        gameActive = FindObjectOfType<MoveLauncher>().getGameActive();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        gameActive = status;
     }
 
     // Update is called once per frame
     void Update()
     {
-        assignGameActive();
         if (gameActive == true)
         {
             GetComponent<Renderer>().enabled = true;

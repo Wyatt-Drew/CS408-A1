@@ -201,14 +201,14 @@ public class Launch : MonoBehaviour
                     }
                 case 'T'://Transparency
                     {
-                        transparency += 0.1f;
+                        transparency += 0.05f;
                         if (transparency > 1f)
                             transparency = 1f;
                         break;
                     }
                 case 't':
                     {
-                        transparency -= 0.1f;
+                        transparency -= 0.05f;
                         if (transparency < 0f)
                             transparency = 0f;
                         break;
