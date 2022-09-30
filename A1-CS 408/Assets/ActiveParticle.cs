@@ -10,10 +10,10 @@ public class ActiveParticle : MonoBehaviour
     bool gameActive;
     //These are only used in the event the game is active.  They force the
     //emission stream to have these properties
-     byte red = 255;
-     byte blue = 0;
-     float green = 255f;
-     float alpha = 255f;
+     float red = 1f;
+     float blue = 0f;
+     float green = 1f;
+     float alpha = 1f;
 
     void Start()
     {
@@ -39,9 +39,15 @@ public class ActiveParticle : MonoBehaviour
     void assignColor()
     {
         //fades from yellow to red
+        //if (green != 0)
+        //    green -= 0.5f;
+        //Color32 color = new Color32(red, (byte)green, blue, (byte)alpha);//for easy math using Color32
+                                                                         //fades from yellow to red
         if (green != 0)
-            green -= 0.5f;
-        Color32 color = new Color32(red, (byte)green, blue, (byte)alpha);//for easy math using Color32
+            green -= (0.95f * Time.deltaTime);
+        //green -= 0.0035f;
+        //Debug.Log(green);
+        Color color = new Color(red, green, blue, alpha);//for easy math using Color32
         GetComponent<Renderer>().material.color = color;
     }
 }

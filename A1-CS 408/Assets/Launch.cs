@@ -60,7 +60,7 @@ public class Launch : MonoBehaviour
             mesh.RecalculateNormals();
             Renderer renderer = launched.GetComponent<Renderer>();
             //Changing the shader I'm using so alpha affects it.
-            renderer.material.shader = Shader.Find("Transparent/Diffuse");
+            //renderer.material.shader = Shader.Find("Transparent/Diffuse");
             Color color = new Color(red, green, blue, transparency);
             renderer.material.color = color;
             //destory particle

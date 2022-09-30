@@ -7,8 +7,8 @@ public class MoveLauncher : MonoBehaviour
 {
     public static float x = 0f;
     public static float y = 0f;
-    public static float xboarder = 21.2f;//half screen width
-    public static float yboarder = 11.9f;//half screen height
+    public static float xboarder = 21.1f;//half screen width 21.1
+    public static float yboarder = 11.9f;//half screen height 11.9
     public GameObject projectile;
     //creative elements
     public static bool gameActive = false;
